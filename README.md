@@ -1,54 +1,66 @@
-# React + TypeScript + Vite
+# React MUI Form Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A flexible, reusable form component library for React, built on top of [Material-UI (MUI)](https://mui.com/) components. Define your forms using a simple JSON schema and render fully controlled, accessible forms with minimal boilerplate.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Declarative JSON Schema**: Define form fields, types, and layout in a JSON structure.
+- **MUI Integration**: Uses MUI components for consistent, accessible UI.
+- **Controlled Inputs**: All fields are fully controlled via React state.
+- **Field Types**: Supports text, password, date, and switch fields out of the box.
+- **Customizable**: Easily extend or style via MUI’s theming and your own components.
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```tsx
+import { MFForm, MFFormField } from './src/components/MFForm';
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
+const fields: MFFormField[][] = [
+  [
+    { name: 'username', label: 'Username', fieldType: 'text-field' },
+    { name: 'password', label: 'Password', fieldType: 'password' },
   ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+  [
+    { name: 'birthdate', label: 'Birthdate', fieldType: 'date' },
+    { name: 'subscribe', label: 'Subscribe', fieldType: 'switch-field', isBool: true },
+  ],
+];
+
+const [formState, setFormState] = useState({});
+
+<MFForm fields={fields} states={formState} setStates={setFormState} />;
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## JSON Schema Example
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Each field is defined as an object:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```ts
+{
+  name: string;           // Field key in state
+  label?: string;         // Field label
+  value?: string|boolean; // Initial value
+  fieldType?: 'text-field' | 'password' | 'date' | 'switch-field';
+  isBool?: boolean;       // For switch fields
+  hide?: boolean;         // Hide field
+  // ...other MUI props
+}
 ```
+
+Fields are grouped in rows (arrays of arrays) for layout.
+
+## Components
+
+- [`MFForm`](src/components/MFForm/index.tsx): Main form renderer.
+- [`MFInput`](src/components/MFForm/MFInput.tsx): Text and select input.
+- [`MFPassword`](src/components/MFForm/MFPassword.tsx): Password input.
+- [`MFDateInput`](src/components/MFForm/MFDateInput.tsx): Date picker.
+- [`MFSwitch`](src/components/MFForm/MFSwitch.tsx): Switch/toggle input.
+
+## Styling
+
+Customize via the [`styles`](src/components/MFForm/styles.ts) object or override MUI theme as needed.
+
+---
+
+See [src/components/MFForm/index.tsx](src/components/MFForm/index.tsx) for the main
