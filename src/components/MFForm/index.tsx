@@ -17,29 +17,29 @@ export interface MFFormField {
   [key: string]: any;
 }
 
-interface MFFormProps<T extends Record<string, any>> {
+export interface MFFormProps<T extends Record<string, any>> {
   fields: MFFormField[][];
   states: T | null;
   setStates: React.Dispatch<React.SetStateAction<T>>;
 }
 
 // Interface for handleChange function
-type HandleChangeFn = (params: {
+export type HandleChangeFn = (params: {
   name: string;
   isBool: boolean;
 }) => (ev: React.ChangeEvent<HTMLInputElement>) => void;
 
 // Interface for handleDateChange function
-type HandleDateChangeFn = (name: string) => (dateVal: any) => void;
+export type HandleDateChangeFn = (name: string) => (dateVal: any) => void;
 
 // Interface for getFieldView function
-type GetFieldViewFn = (
+export type GetFieldViewFn = (
   field: Omit<MFFormField, 'hide'> & { hide?: boolean },
   idx: number
 ) => React.ReactNode;
 
 // Interface for getSizes function
-type GetSizesFn = (rowsLength: number) => {
+export type GetSizesFn = (rowsLength: number) => {
   lg: number;
   md: number;
   sm: number;
