@@ -13,7 +13,7 @@ A flexible, reusable form component library for React, built on top of [Material
 ## Usage
 
 ```tsx
-import { MFForm, MFFormField } from './src/components/MFForm';
+import { MFForm, type MFFormField } from 'react-mui-form';
 
 const fields: MFFormField[][] = [
   [
